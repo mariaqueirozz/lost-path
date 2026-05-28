@@ -6,128 +6,68 @@ A proposta deve apresentar uma ideia simples, clara e viável para ser desenvolv
 
 ## 1. Nome provisório do jogo
 
-Escreva aqui o nome provisório do jogo.
-
-Exemplo:
-
-> Corrida dos Obstáculos
+> Lost Path
 
 ## 2. Integrantes do grupo
 
 Liste os integrantes do grupo.
 
-- Nome 1:
-- Nome 2:
-- Nome 3:
-- Nome 4:
+- Nome 1: Aurelio Augusto
+- Nome 2: Larissa Fineli
+- Nome 3: Maria Luiza Queiroz
+- Nome 4: Matheus Campos
 
 ## 3. Tipo de jogo
 
 Indique o tipo de jogo que será desenvolvido.
 
-Exemplos:
-
-- jogo de desviar de obstáculos;
-- jogo de coleta de itens;
-- labirinto simples;
-- jogo de perguntas e respostas;
-- jogo de memória;
-- Pong;
-- Snake;
-- Breakout;
-- nave desviando de meteoros;
-- corrida simples com obstáculos;
-- jogo de clique rápido;
-- jogo de sobrevivência simples.
-
 Tipo escolhido pelo grupo:
 
-> Escreva aqui.
+> Labirinto simples em 2D
 
 ## 4. Descrição geral do jogo
 
 Explique, em poucas linhas, como o jogo funcionará.
 
-Procure responder:
-
-- O que aparece na tela?
-- O que o jogador controla?
-- O que o jogador precisa fazer?
-- Quais desafios aparecem durante a partida?
-
 Descrição:
 
-> Escreva aqui.
+> O jogo “Lost Path” será um jogo de labirinto em 2D onde o jogador controla um personagem que precisa encontrar a saída do mapa. O cenário será formado por paredes e corredores, criando caminhos que o jogador deverá explorar até encontrar o final do labirinto. Durante a partida, o jogador precisará evitar obstáculos e percorrer o caminho correto para concluir o jogo. O jogo contará com movimentação simples, sistema de colisão e tela de vitória
 
 ## 5. Objetivo do jogador
 
 Explique qual é o objetivo principal do jogador.
 
-Exemplos:
-
-- coletar o maior número possível de itens;
-- sobreviver pelo maior tempo possível;
-- chegar até o final do labirinto;
-- acertar alvos;
-- responder perguntas corretamente;
-- evitar obstáculos;
-- quebrar todos os blocos.
-
 Objetivo:
 
-> Escreva aqui.
+> O objetivo do jogador é encontrar a saída do labirinto no menor tempo possível sem colidir com obstáculos.
 
 ## 6. Regras principais
 
 Liste as principais regras do jogo.
 
-Exemplo:
-
-- O jogador começa com 3 vidas.
-- Cada moeda coletada vale 10 pontos.
-- Cada colisão com obstáculo remove 1 vida.
-- A partida termina quando as vidas chegam a zero.
-- O jogador vence se alcançar 100 pontos.
-
 Regras do grupo:
 
-- Regra 1:
-- Regra 2:
-- Regra 3:
-- Regra 4:
-- Regra 5:
+- Regra 1: O jogador poderá se movimentar em quatro direções utilizando o teclado.
+- Regra 2: O personagem não poderá atravessar paredes do labirinto.
+- Regra 3: O jogador deverá encontrar a saída do mapa para vencer.
+- Regra 4: Caso exista obstáculo ou inimigo, o jogador perderá ao encostar nele.
+- Regra 5: O jogo poderá possuir contagem de tempo para aumentar o desafio.
 
 ## 7. Condição de vitória
 
 Explique como o jogador vence ou conclui o jogo.
 
-Exemplos:
-
-- atingir determinada pontuação;
-- chegar ao final da fase;
-- sobreviver até o tempo acabar;
-- responder uma quantidade mínima de perguntas;
-- quebrar todos os blocos.
-
 Condição de vitória:
 
-> Escreva aqui.
+> O jogador vence ao encontrar a saída do labirinto.
 
 ## 8. Condição de derrota ou encerramento
 
 Explique como o jogador perde ou quando a partida termina.
 
-Exemplos:
-
-- perder todas as vidas;
-- acabar o tempo;
-- colidir com determinado obstáculo;
-- errar muitas perguntas;
-- deixar a bola cair, no caso de Breakout ou Pong.
-
 Condição de derrota ou encerramento:
 
-> Escreva aqui.
+> O jogador perde ao colidir com obstáculos ou caso o tempo da partida termine.
 
 ## 9. Elementos previstos no jogo
 
@@ -135,119 +75,71 @@ Descreva os principais elementos que farão parte do jogo.
 
 ## Jogador ou elemento principal
 
-Exemplo:
-
-> Um personagem controlado pelas setas do teclado.
-
 Descrição:
 
-> Escreva aqui.
+> Um personagem controlado pelo teclado que poderá andar pelos corredores do labirinto
 
 ## Obstáculos, inimigos ou desafios
 
-Exemplo:
-
-> Obstáculos aparecem em posições aleatórias e devem ser evitados.
-
 Descrição:
 
-> Escreva aqui.
+> Paredes impedirão a movimentação do jogador e poderão existir obstáculos ou inimigos simples espalhados pelo mapa.
 
 ## Itens, alvos ou objetos de interação
 
-Exemplo:
-
-> Moedas aparecem na tela e aumentam a pontuação quando coletadas.
-
 Descrição:
 
-> Escreva aqui.
+> A saída do labirinto será o principal objetivo do jogador. Poderão existir chaves ou itens simples para interação.
 
 ## Pontuação, vidas, tempo ou progresso
 
-Exemplo:
-
-> O jogador começa com 3 vidas e ganha 10 pontos por item coletado.
-
 Descrição:
 
-> Escreva aqui.
+> O jogo poderá possuir cronômetro e sistema simples de pontuação baseado no tempo levado para concluir o labirinto.
 
 ## 10. Controles previstos
 
 Informe os comandos que serão utilizados pelo jogador.
 
-Exemplo:
-
-- Seta para cima: mover para cima
-- Seta para baixo: mover para baixo
-- Seta para esquerda: mover para esquerda
-- Seta para direita: mover para direita
-- Espaço: realizar ação
-- ESC: sair do jogo
-
 Controles do grupo:
 
-- Tecla/comando:
-- Tecla/comando:
-- Tecla/comando:
+- Tecla/comando: W ou seta para cima — mover para cima
+- Tecla/comando: S ou seta para baixo — mover para baixo
+- Tecla/comando: A ou seta para esquerda — mover para esquerda
+- Tecla/comando: D ou seta para direita — mover para direita
+- Tecla/comando: ESC — sair do jogo
 
 ## 11. Organização inicial do código
 
 Explique como o grupo pretende organizar o código.
 
-Exemplo:
-
-- `main.py`: inicia o jogo;
-- `src/jogo.py`: contém o loop principal;
-- `src/config.py`: guarda configurações como tamanho da tela e cores;
-- `src/funcoes.py`: contém funções auxiliares;
-- `src/dados.py`: contém funções de leitura e escrita de arquivos.
-
 Organização planejada:
 
-> Escreva aqui.
-
+> - main.py: inicia o jogo e executa o loop principal;
+- player.py: controla a movimentação do jogador;
+- mapa.py: contém a criação do labirinto;
+- config.py: armazena configurações como tamanho da tela, cores e velocidade;
+- colisao.py: controla colisões entre jogador e paredes.
 
 ## 12. Recursos externos previstos
 
 Informe se o grupo pretende utilizar imagens, sons, fontes, tutoriais ou códigos externos.
 
-Exemplo:
-
-- imagens obtidas de banco gratuito;
-- sons gratuitos;
-- tutorial usado apenas como referência;
-- fonte personalizada.
-
 Recursos previstos:
 
-> Escreva aqui.
-
-Caso não pretenda utilizar recursos externos, escreva:
-
-> Não pretendemos utilizar recursos externos.
+> - Imagens gratuitas para o personagem e cenário;
+- Efeitos sonoros gratuitos;
+- Tutoriais de Python e Pygame utilizados apenas como referência.
 
 ## 13. Principais dificuldades esperadas
 
 Liste as dificuldades que o grupo acredita que poderá enfrentar.
 
-Exemplos:
-
-- movimentação do jogador;
-- colisão entre objetos;
-- controle de tempo;
-- criação do ranking;
-- organização do código;
-- uso do GitHub;
-- testes;
-- exibição de textos na tela.
-
 Dificuldades previstas:
 
-- Dificuldade 1:
-- Dificuldade 2:
-- Dificuldade 3:
+- Dificuldade 1: Implementar colisão entre jogador e paredes.
+- Dificuldade 2: Criar o labirinto utilizando matriz.
+- Dificuldade 3: Organizar corretamente o código em arquivos separados.
 
 ## 14. Escopo mínimo para a entrega final
 
@@ -255,32 +147,16 @@ Descreva qual será a versão mínima aceitável do jogo.
 
 Esta seção é importante para evitar que o grupo escolha uma ideia grande demais.
 
-Exemplo:
-
-> A versão mínima do jogo terá um personagem controlado pelo teclado, obstáculos aparecendo na tela, sistema de vidas, sistema de pontuação e tela de fim de jogo.
-
 Escopo mínimo:
 
-> Escreva aqui.
+> A versão mínima do jogo terá um personagem controlado pelo teclado, um mapa de labirinto funcional, colisão com paredes, objetivo de encontrar a saída e tela de vitória.
 
 ## 15. Possíveis melhorias, caso haja tempo
 
 Liste funcionalidades extras que o grupo poderá implementar se conseguir concluir o escopo mínimo.
 
-Exemplos:
-
-- tela inicial;
-- sons;
-- fases;
-- aumento de dificuldade;
-- ranking;
-- animações;
-- novos tipos de obstáculos;
-- diferentes personagens;
-- menu de pausa.
-
 Melhorias possíveis:
 
-- Melhoria 1:
-- Melhoria 2:
-- Melhoria 3:
+- Melhoria 1: Tela inicial do jogo.
+- Melhoria 2: Sistema de fases.
+- Melhoria 3: Sons, cronômetro e aumento de dificuldade.
