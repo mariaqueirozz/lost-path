@@ -1,143 +1,135 @@
+# jogo.py
+# Contém o loop principal do jogo Lost Path
+
 import pygame
-
+import time
 from src.config import (
-    LARGURA_TELA,
-    ALTURA_TELA,
-    FPS,
-    TITULO_JOGO,
-    CINZA,
-    CAMINHO_RECORDE,
-    CAMINHO_SPRITES,
+    LARGURA_TELA, ALTURA_TELA, TITULO, FPS,
+    COR_FUNDO, COR_TEXTO, COR_TEMPO
 )
+from src.mapa import desenhar_mapa, obter_paredes, obter_saida, obter_posicao_inicial
+from src.player import Jogador, processar_movimento
 
-from src.funcoes import (
-    calcular_pontos,
-    jogador_perdeu,
-    limitar_valor,
-    verificar_colisao,
-    tomar_dano,
-)
-from src.sprites import pegar_sprite
-from src.dados import (
-    salvar_recorde,
-    carregar_recorde,
-)
+
+def desenhar_hud(tela, fonte, tempo_decorrido):
+    """
+    Desenha o HUD (informações na tela): tempo e controles.
+    HUD = Head-Up Display, são as informações exibidas para o jogador.
+    """
+    # Exibe o tempo no canto superior esquerdo
+    minutos = int(tempo_decorrido) // 60
+    segundos = int(tempo_decorrido) % 60
+    texto_tempo = fonte.render(f"Tempo: {minutos:02d}:{segundos:02d}", True, COR_TEMPO)
+    tela.blit(texto_tempo, (10, 10))
+
+    # Dica de controles no canto superior direito
+    texto_dica = fonte.render("WASD ou setas para mover | ESC sair", True, COR_TEXTO)
+    tela.blit(texto_dica, (LARGURA_TELA - texto_dica.get_width() - 10, 10))
+
+
+def tela_vitoria(tela, fonte_grande, fonte_pequena, tempo_decorrido):
+    """
+    Exibe a tela de vitória com o tempo do jogador.
+    Fica aguardando o jogador pressionar qualquer tecla para sair.
+    """
+    tela.fill((20, 20, 20))
+
+    # Título
+    texto_vitoria = fonte_grande.render("VOCÊ VENCEU!", True, (255, 215, 0))
+    x = LARGURA_TELA // 2 - texto_vitoria.get_width() // 2
+    tela.blit(texto_vitoria, (x, 200))
+
+    # Tempo final
+    minutos = int(tempo_decorrido) // 60
+    segundos = int(tempo_decorrido) % 60
+    texto_tempo = fonte_pequena.render(f"Seu tempo: {minutos:02d}:{segundos:02d}", True, COR_TEXTO)
+    x_tempo = LARGURA_TELA // 2 - texto_tempo.get_width() // 2
+    tela.blit(texto_tempo, (x_tempo, 300))
+
+    # Instrução
+    texto_sair = fonte_pequena.render("Pressione qualquer tecla para sair", True, (180, 180, 180))
+    x_sair = LARGURA_TELA // 2 - texto_sair.get_width() // 2
+    tela.blit(texto_sair, (x_sair, 380))
+
+    pygame.display.flip()
+
+    # Aguarda o jogador pressionar uma tecla
+    aguardando = True
+    while aguardando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                aguardando = False
+            if evento.type == pygame.KEYDOWN:
+                aguardando = False
 
 
 def executar_jogo():
-    """Executa o loop principal do jogo e controla estado, colisões e pontuação."""
+    """
+    Função principal: inicializa o Pygame, cria os objetos e roda o loop do jogo.
+    """
+    # Inicializa todos os módulos do Pygame
     pygame.init()
-    
 
+    # Cria a janela
     tela = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
-    pygame.display.set_caption(TITULO_JOGO)
+    pygame.display.set_caption(TITULO)
 
+    # Relógio para controlar o FPS
     relogio = pygame.time.Clock()
+
+    # Fontes para texto
+    fonte_hud = pygame.font.SysFont(None, 26)
+    fonte_grande = pygame.font.SysFont(None, 64)
+    fonte_pequena = pygame.font.SysFont(None, 36)
+
+    # Carrega o mapa e obtém os elementos necessários
+    paredes = obter_paredes()
+    saida = obter_saida()
+    pos_inicial = obter_posicao_inicial()
+
+    # Cria o jogador na posição inicial
+    jogador = Jogador(pos_inicial[0], pos_inicial[1])
+
+    # Marca o tempo de início
+    tempo_inicio = time.time()
+
+    # Variável de controle do loop
     rodando = True
 
-    # 1. Carregando as imagens recortadas do Spritesheet
-
-
-    # Jogador: usando tamanho 110x110 para capturar o quadrado perfeitamente
-    player_image = pegar_sprite(CAMINHO_SPRITES, x=110, y=120, width=190, height=190, scale=0.5)
-
-    # Gema pequena: usando tamanho 64x64
-    gem_image    = pegar_sprite(CAMINHO_SPRITES, x=900, y=690, width=200, height=200, scale=0.5)
-
-    # Morcego: usando tamanho 180x120 por causa das asas abertas
-    bat_image    = pegar_sprite(CAMINHO_SPRITES, x=905, y=1060, width=200, height=130, scale=0.5)
-    
-    # 2. Criando a estrutura de Sprites usando Dicionários
-    jogador = {
-        "imagem": player_image,
-        "rect": player_image.get_rect(topleft=(100, 100))
-    }
-
-    gema = {
-        "imagem": gem_image,
-        "rect": gem_image.get_rect(topleft=(500, 300))
-    }
-    
-    inimigo = {
-        "imagem": bat_image,
-        "rect": bat_image.get_rect(topleft=(200, 500))
-    }
-
-    velocidade = 5
-    pontos = 0
-    vidas = 3
-    recorde = carregar_recorde(CAMINHO_RECORDE)
-
-    # Loop principal: processa entrada, atualiza estado e renderiza a cena.
+    # ---- LOOP PRINCIPAL ----
     while rodando:
-        relogio.tick(FPS)
 
+        # 1. Processar eventos (fechar janela, tecla ESC)
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_ESCAPE:
+                    rodando = False
 
-        teclas = pygame.key.get_pressed()
+        # 2. Atualizar estado do jogo
+        processar_movimento(jogador, paredes)
 
-        # Movimentação alterando direto os eixos X e Y do retângulo do jogador
-        if teclas[pygame.K_LEFT]:
-            jogador["rect"].x -= velocidade
-        if teclas[pygame.K_RIGHT]:
-            jogador["rect"].x += velocidade
-        if teclas[pygame.K_UP]:
-            jogador["rect"].y -= velocidade
-        if teclas[pygame.K_DOWN]:
-            jogador["rect"].y += velocidade
+        # Calcula o tempo decorrido
+        tempo_decorrido = time.time() - tempo_inicio
 
-        # Limitando o jogador dentro das bordas da tela usando as propriedades do Rect
-        jogador["rect"].x = limitar_valor(jogador["rect"].x, 0, LARGURA_TELA - jogador["rect"].width)
-        jogador["rect"].y = limitar_valor(jogador["rect"].y, 0, ALTURA_TELA - jogador["rect"].height)
-
-        # Verificação de colisão com a Gema (antigo 'item')
-        if verificar_colisao(jogador["rect"], gema["rect"]):
-            pontos = calcular_pontos(pontos, 10)
-
-            # Move a gema de lugar ao coletar
-            gema["rect"].x += 80
-            gema["rect"].y += 50
-
-            # Se a gema sair da tela, volta para uma posição segura
-            if gema["rect"].x > LARGURA_TELA - gema["rect"].width:
-                gema["rect"].x = 50
-            if gema["rect"].y > ALTURA_TELA - gema["rect"].height:
-                gema["rect"].y = 50
-
-        # Verificação de colisão com o Inimigo
-        if verificar_colisao(jogador["rect"], inimigo["rect"]):
-            vidas = tomar_dano(vidas, 1)
-
-            # Afasta o inimigo ao colidir
-            inimigo["rect"].x += 80
-            inimigo["rect"].y += 50
-
-            if inimigo["rect"].x > LARGURA_TELA - inimigo["rect"].width:
-                inimigo["rect"].x = 50
-            if inimigo["rect"].y > ALTURA_TELA - inimigo["rect"].height:
-                inimigo["rect"].y = 50
-
-        # Regras de fim de jogo e recorde
-        if jogador_perdeu(vidas):
+        # Verifica se o jogador chegou na saída
+        if jogador.chegou_na_saida(saida):
             rodando = False
+            tela_vitoria(tela, fonte_grande, fonte_pequena, tempo_decorrido)
+            break
 
-        if pontos > recorde:
-            recorde = pontos
-            salvar_recorde(CAMINHO_RECORDE, recorde)
+        # 3. Desenhar na tela
+        tela.fill(COR_FUNDO)        # limpa a tela
+        desenhar_mapa(tela)          # desenha o labirinto
+        jogador.desenhar(tela)       # desenha o jogador
+        desenhar_hud(tela, fonte_hud, tempo_decorrido)  # desenha HUD
 
-        pygame.display.set_caption(
-            f"{TITULO_JOGO} | Pontos: {pontos} | Recorde: {recorde} | Vidas: {vidas}"
-        )
-
-        tela.fill(CINZA)
-
-        # Desenhando os elementos na tela passando a imagem e o rect de cada dicionário
-        tela.blit(gema["imagem"], gema["rect"])
-        tela.blit(inimigo["imagem"], inimigo["rect"])
-        tela.blit(jogador["imagem"], jogador["rect"])
-
+        # 4. Atualiza a janela com o que foi desenhado
         pygame.display.flip()
 
+        # 5. Controla a velocidade (FPS)
+        relogio.tick(FPS)
+
+    # Encerra o Pygame ao sair do loop
     pygame.quit()

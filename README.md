@@ -1,73 +1,57 @@
-# Nome do Jogo
+# Lost Path
 
-Projeto final da disciplina de Introdução a Algoritmos/Programação, desenvolvido com Python e Pygame.
-
-Este repositório é um template para os grupos da disciplina. A proposta é começar com uma base funcional e evoluir o jogo ao longo do semestre.
+Projeto final da disciplina de Introdução a Algoritmos, desenvolvido com Python e Pygame.
 
 ## Integrantes do grupo
 
-- Nome do integrante 1
-- Nome do integrante 2
-- Nome do integrante 3
-- Nome do integrante 4
-
-## Estrutura do projeto
-
-- `main.py`: ponto de entrada da aplicação.
-- `src/`: código-fonte principal do jogo (loop, regras, sprites e dados).
-- `assets/`: imagens, fontes e sons.
-- `data/`: arquivos persistentes (recorde/ranking).
-- `tests/`: testes unitários com `pytest`.
-- `docs/`: documentação do projeto, incluindo proposta inicial.
+- Aurelio Augusto
+- Larissa Fineli
+- Maria Luiza Queiroz
+- Matheus Campos
 
 ## Descrição do jogo
 
-Descreva brevemente a ideia principal do jogo.
-
-Exemplo:
-
-> O jogo consiste em controlar um personagem que deve coletar moedas e evitar obstáculos. O jogador ganha pontos ao coletar itens e perde vidas ao colidir com obstáculos. A partida termina quando o tempo acaba ou quando o jogador perde todas as vidas.
+Lost Path é um jogo de labirinto em 2D onde o jogador controla um personagem (círculo verde) e precisa encontrar a saída do labirinto (célula dourada com "S") no menor tempo possível. O labirinto é composto por paredes e corredores, e o jogador não pode atravessar paredes.
 
 ## Objetivo do jogador
 
-Explique o que o jogador precisa fazer para vencer ou avançar no jogo.
-
-Exemplo:
-
-> O objetivo é coletar a maior quantidade possível de itens antes que o tempo acabe, evitando colisões com os obstáculos.
+Encontrar a saída do labirinto (marcada com "S" dourado) no menor tempo possível.
 
 ## Regras do jogo
 
-Liste as principais regras do jogo.
-
-Exemplo:
-
-- O jogador se movimenta usando as setas do teclado.
-- Cada item coletado aumenta a pontuação.
-- Colidir com um obstáculo reduz a quantidade de vidas.
-- A partida termina quando o jogador perde todas as vidas ou quando o tempo acaba.
+- O jogador se movimenta em quatro direções usando o teclado.
+- Não é possível atravessar paredes.
+- O jogo termina quando o jogador encontra a saída.
+- O tempo é contado a partir do início da partida.
 
 ## Controles
 
-Informe as teclas ou comandos utilizados no jogo.
-
-Exemplo:
-
-- Seta para cima: mover para cima
-- Seta para baixo: mover para baixo
-- Seta para esquerda: mover para esquerda
-- Seta para direita: mover para direita
-- Espaço: realizar ação
-- ESC: sair do jogo
+| Tecla | Ação |
+|-------|------|
+| W ou ↑ | Mover para cima |
+| S ou ↓ | Mover para baixo |
+| A ou ← | Mover para esquerda |
+| D ou → | Mover para direita |
+| ESC | Sair do jogo |
 
 ## Como executar o projeto
 
 ### 1. Clonar o repositório
 
 ```bash
-git clone LINK_DO_REPOSITORIO
-cd NOME_DA_PASTA
+git clone https://github.com/mariaqueirozz/lost-path.git
+cd lost-path
+```
+
+### 2. Instalar dependências
+
+```bash
 pip install -r requirements.txt
+```
+
+### 3. Executar o jogo
+
+```bash
 python main.py
 ```
 
@@ -77,15 +61,34 @@ python main.py
 python -m pytest
 ```
 
-## Checklist mínimo para entrega
+## Estrutura do projeto
 
-- Preencher este README com nome final, descrição real, regras e controles do jogo.
-- Atualizar `docs/proposta.MD` com a proposta do grupo.
-- Garantir que o jogo executa com `python main.py`.
-- Garantir que os testes passam com `pytest`.
+```
+lost-path/
+├── main.py              # Ponto de entrada da aplicação
+├── requirements.txt     # Dependências do projeto
+├── README.md
+├── src/
+│   ├── config.py        # Configurações (tela, cores, velocidade)
+│   ├── jogo.py          # Loop principal do jogo
+│   ├── mapa.py          # Labirinto (matriz) e funções de desenho
+│   └── player.py        # Jogador: movimentação e colisão
+├── assets/              # Imagens, sons e fontes (a adicionar)
+├── data/                # Arquivos de dados (ranking, recorde)
+├── docs/
+│   └── proposta.md      # Proposta inicial do grupo
+└── tests/
+    └── test_mapa.py     # Testes unitários
+```
 
-## Observações para os alunos
+## Estado atual (Semana 2 – Protótipo)
 
-- Mantenham o código organizado em módulos pequenos e com responsabilidade clara.
-- Comentem partes importantes da lógica, principalmente regras do jogo.
-- Registrem decisões técnicas no README do grupo ao longo do desenvolvimento.
+- [x] Janela do Pygame funcionando
+- [x] Loop principal implementado
+- [x] Movimentação do jogador (WASD e setas)
+- [x] Labirinto desenhado via matriz
+- [x] Colisão com paredes funcionando
+- [x] Célula de saída identificada
+- [x] Tela de vitória com tempo
+- [x] Código organizado em funções e módulos
+- [x] Testes básicos implementados
