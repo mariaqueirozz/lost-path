@@ -1,5 +1,5 @@
 import pygame
-from src.config import TAMANHO_CELULA, COR_JOGADOR, VELOCIDADE_JOGADOR
+from src.config import TAMANHO_CELULA, COR_JOGADOR, COR_JOGADOR_BRILHO, VELOCIDADE_JOGADOR
 
 
 class Jogador:
@@ -9,13 +9,13 @@ class Jogador:
         self.y = y
         self.tamanho = TAMANHO_CELULA - 8
         self.rect = pygame.Rect(self.x + 4, self.y + 4, self.tamanho, self.tamanho)
+        
 
     def mover(self, dx, dy, paredes):
         self.rect.x += dx
         if self._colidiu_com_parede(paredes):
             self.rect.x -= dx
 
-        # Move no eixo Y
         self.rect.y += dy
         if self._colidiu_com_parede(paredes):
             self.rect.y -= dy
@@ -30,11 +30,23 @@ class Jogador:
         return self.rect.colliderect(saida)
 
     def desenhar(self, tela):
+
         centro_x = self.rect.x + self.tamanho // 2
         centro_y = self.rect.y + self.tamanho // 2
         raio = self.tamanho // 2
+        
+
+        sombra_surf = pygame.Surface((raio * 3, raio), pygame.SRCALPHA)
+        pygame.draw.ellipse(sombra_surf, (50, 0, 80, 70), sombra_surf.get_rect())
+        tela.blit(sombra_surf, (centro_x - raio * 3 // 2, centro_y + raio - 4))
+ 
         pygame.draw.circle(tela, COR_JOGADOR, (centro_x, centro_y), raio)
-        pygame.draw.circle(tela, (0, 100, 0), (centro_x, centro_y), raio, 2)
+
+        brilho_x = centro_x - raio // 3
+        brilho_y = centro_y - raio // 3
+        pygame.draw.circle(tela, COR_JOGADOR_BRILHO, (brilho_x, brilho_y), raio // 3)
+
+        pygame.draw.circle(tela, (100, 20, 160), (centro_x, centro_y), raio, 2)
 
 
 def processar_movimento(jogador, paredes):
