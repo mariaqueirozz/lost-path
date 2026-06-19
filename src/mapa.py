@@ -8,12 +8,12 @@ LABIRINTO = [
     [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 0, 3, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+    [1, 1, 1, 3, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1],
     [1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1],
     [1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 1, 0, 4, 1, 1, 1, 0, 1, 0, 1],
+    [1, 1, 1, 1, 0, 1, 1, 4, 0, 1, 1, 1, 0, 1, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
@@ -22,8 +22,8 @@ LABIRINTO = [
 ]
 
 CHAVES = [
-    (3, 3, 3),   
-    (9, 13, 4),  
+    (1, 13, 3),
+    (13, 1, 4),
 ]
  
 COR_PORTA = {
@@ -59,7 +59,7 @@ def obter_paredes():
     paredes = []
     for linha in range(len(LABIRINTO)):
         for coluna in range(len(LABIRINTO[linha])):
-            if LABIRINTO[linha][coluna] in (1, 3, 4):
+            if LABIRINTO[linha][coluna] == 1:
                 rect = pygame.Rect(
                     coluna * TAMANHO_CELULA,
                     linha * TAMANHO_CELULA,
@@ -90,9 +90,9 @@ def obter_portas():
             cel = LABIRINTO[linha][coluna]
             if cel in (3, 4):
                 rect = pygame.Rect(
-                    coluna * TAMANHO_CELULA,
+                    coluna * TAMANHO_CELULA + TAMANHO_CELULA // 4,
                     linha * TAMANHO_CELULA,
-                    TAMANHO_CELULA,
+                    TAMANHO_CELULA // 2,
                     TAMANHO_CELULA
                 )
                 portas.append((rect, cel, linha, coluna))
