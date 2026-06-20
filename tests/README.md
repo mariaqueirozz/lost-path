@@ -4,13 +4,15 @@ Esta pasta contem testes automatizados do projeto.
 
 ## Arquivos
 
-- `test_logica.py`: valida funcoes puras de logica em `src/funcoes.py`.
+- `test_logica.py`: testa regras básicas do jogo.
+- `test_mapa.py`: verifica funções relacionadas ao mapa.
 
 ## Como executar
 
 ```bash
 python -m pytest
 ```
+Os testes garantem o funcionamento das principais regras implementadas durante o desenvolvimento do projeto.
 
 ## Boas praticas
 
